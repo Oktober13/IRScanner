@@ -82,6 +82,8 @@ for i = 1:length(average_scan(:,2)) % For each IR reading in the data
 %     distance(i)
 end
 
+distance = transpose(distance);
+
 figure
 plot(average_scan(:,1),distance);
 xlabel('Angle (degrees)');
@@ -89,7 +91,14 @@ ylabel('Distance (cm)');
 
 %% Converting distance into X and Y coordinates
 
+height = sind((average_scan(:,1)-100)) .* distance;
 
+abs_distance = height ./ tand((average_scan(:,1)-100));
+
+figure
+plot(abs_distance, height);
+xlabel('Height (cm)');
+ylabel('Absolute Distance (cm)');
 
 %% UNUSED 3PT AVERAGE FUNCTION
 function y = three_point_moving_average(x)
